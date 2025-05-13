@@ -164,7 +164,7 @@ namespace SistemaBancario.Services
 
         public bool ClienteExiste(ClienteCriacaoDto clienteCriacaoDto)
         {
-            return _context.Clientes.Any(item => item.Nome ==  clienteCriacaoDto.Nome);
+            return _context.Clientes.Any(item => item.Nome ==  clienteCriacaoDto.Nome );
         }
     }
 }
