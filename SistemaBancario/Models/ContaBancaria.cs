@@ -7,7 +7,7 @@ public class ContaBancaria
     public string? NumeroConta { get; set; }
     public string? Agencia { get; set; }
     public TipoContaEnum Tipo { get; set; }
-    public double Saldo { get; set; }     
+    public decimal Saldo { get; set; }     
     public bool Ativa { get; set; }
     public DateTime DataCriacao { get; set; }
     public int ClienteId { get; set; }

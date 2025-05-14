@@ -12,9 +12,9 @@ namespace SistemaBancario.Models
         public DateTime Vencimento { get; set; }
         public int ClienteId { get; set; }
         public Cliente Cliente { get; set; }       
-        public bool Ativo { get; set; }
+        public bool Ativo { get; set; } 
+        public bool Bloqueio { get; set; }
 
-        
     }
 }
 

@@ -19,7 +19,7 @@ namespace SistemaBancario.Dto
         public TipoContaEnum Tipo { get; set; }
 
         [Required(ErrorMessage = "Informe o saldo da conta")]
-        public double Saldo { get; set; } 
+        public decimal Saldo { get; set; } 
         public bool Ativa { get; set; } 
         public DateTime DataCriacao { get; set; }
        

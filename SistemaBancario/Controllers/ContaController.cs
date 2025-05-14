@@ -16,17 +16,37 @@ namespace SistemaBancario.Controllers
             _contaInterface = contaInterface;
         }
 
-
+        /// <summary>
+        /// Cria uma nova conta bancária.
+        /// </summary>
+        /// <param name="contaBancariaDto">Dados para abertura da conta.</param>
+        /// <returns>Dados da conta criada.</returns>
+        /// <response code="200">Conta criada com sucesso.</response>
+        /// <response code="400">Dados inválidos para criação da conta.</response>
+        /// <response code="500">Erro interno no servidor.</response>
         [HttpPost]
-        public async Task<IActionResult> CriarConta(ContaBancariaDto contaBancariaDto)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> CriarConta([FromBody] ContaBancariaDto contaBancariaDto)
         {
             var conta = await _contaInterface.AberturaConta(contaBancariaDto);
             return Ok(conta);
         }
 
+        /// <summary>
+        /// Consulta o saldo de uma conta bancária.
+        /// </summary>
+        /// <param name="numeroConta">Número da conta bancária.</param>
+        /// <returns>Saldo atual da conta.</returns>
+        /// <response code="200">Saldo consultado com sucesso.</response>
+        /// <response code="404">Conta não encontrada.</response>
+        /// <response code="500">Erro interno no servidor.</response>
         [HttpGet]
-
-        public async Task<IActionResult> ConsultarSaldo(string numeroConta)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> ConsultarSaldo([FromQuery] string numeroConta)
         {
             var saldo = await _contaInterface.ConsultaSaldo(numeroConta);
             return Ok(saldo);
