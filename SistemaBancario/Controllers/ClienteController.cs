@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemaBancario.Dto;
+using SistemaBancario.Services;
 using SistemaBancario.Services.Interface;
 
 namespace SistemaBancario.Controllers
@@ -33,6 +34,29 @@ namespace SistemaBancario.Controllers
             var cliente = await _clienteIterface.RegistrarCliente(clienteCriacaoDto);
             return Ok(cliente);
         }
+
+        /// <summary>
+        /// Faz o upload da foto do cliente identificado pelo ID.
+        /// </summary>
+        /// <param name="id">ID do cliente para associar a foto.</param>
+        /// <param name="foto">Arquivo de imagem a ser enviado.</param>
+        /// <returns>Retorna a URL pública da imagem salva ou erro em caso de falha.</returns>
+        [HttpPost("{id}/upload-foto")]
+
+        public async Task<IActionResult> UploadFoto(int id, IFormFile foto)
+        {
+            try
+            {
+                var urlRelativa = await _clienteIterface.UploadFotoAsync(id, foto);
+                var urlCompleta = $"{Request.Scheme}://{Request.Host}{urlRelativa}";
+                return Ok(new { url = urlCompleta });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// Lista todos os clientes cadastrados.
@@ -104,5 +128,7 @@ namespace SistemaBancario.Controllers
             var cliente = await _clienteIterface.EditarCliente(clienteAleracaoDto);
             return Ok(cliente);
         }
+        
     }
+
 }

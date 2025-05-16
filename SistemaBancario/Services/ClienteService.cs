@@ -9,9 +9,11 @@ namespace SistemaBancario.Services
     public class ClienteService : IClienteIterface
     {
         private readonly AppDbContext _context;
-        public ClienteService(AppDbContext context)
+        private readonly IWebHostEnvironment _environment;
+        public ClienteService(AppDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         public async Task<ResponseModel<Cliente>> BuscarPorId(int id)
@@ -166,5 +168,34 @@ namespace SistemaBancario.Services
         {
             return _context.Clientes.Any(item => item.Nome ==  clienteCriacaoDto.Nome );
         }
+
+        public async Task<string> UploadFotoAsync(int id, IFormFile foto)
+        {
+            var cliente = await _context.Clientes.FindAsync(id);
+            if (cliente == null)
+                throw new Exception("Cliente não encontrado.");
+
+            if (foto == null || foto.Length == 0)
+                throw new Exception("Nenhuma foto enviada.");
+
+            var nomeArquivo = Guid.NewGuid().ToString() + Path.GetExtension(foto.FileName);
+            var pasta = Path.Combine(_environment.WebRootPath ?? "wwwroot", "images");
+            var caminho = Path.Combine(pasta, nomeArquivo);
+
+            Directory.CreateDirectory(pasta); 
+
+            using (var stream = new FileStream(caminho, FileMode.Create))
+            {
+                await foto.CopyToAsync(stream);
+            }
+
+            var urlDaImagem = $"/images/{nomeArquivo}";
+            cliente.FotoUrl = urlDaImagem;
+
+            await _context.SaveChangesAsync();
+
+            return urlDaImagem;
+        }
     }
 }
+

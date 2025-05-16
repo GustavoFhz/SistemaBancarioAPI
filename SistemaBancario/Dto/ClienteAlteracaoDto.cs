@@ -20,6 +20,7 @@ namespace SistemaBancario.Dto
 
         [Required(ErrorMessage = "O endereço é obrigatório")]
         public string Endereco { get; set; }
+        public string? FotoUrl { get; set; }
 
     }
 }

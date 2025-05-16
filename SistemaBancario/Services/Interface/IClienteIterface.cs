@@ -9,6 +9,8 @@ namespace SistemaBancario.Services.Interface
         Task<ResponseModel<List<Cliente>>> ListarClientes();
         Task<ResponseModel<Cliente>> BuscarPorId(int id);
         Task<ResponseModel<Cliente>> EditarCliente(ClienteAlteracaoDto clienteAlteracaoDto);
-        Task<ResponseModel<Cliente>> RemoverCliente(int id);
+        Task<ResponseModel<Cliente>> RemoverCliente(int id);     
+        Task<string> UploadFotoAsync(int id, IFormFile foto);     
+
     }
 }

@@ -9,6 +9,7 @@
         public string? Telefone { get; set; }
         public string? DataNascimento { get; set; }
         public string? Endereco { get; set; }
+        public string? FotoUrl { get; set; }
 
         public ICollection<ContaBancaria> ContasBancarias { get; set; }
         public ICollection<Cartao> Cartoes { get; set; }

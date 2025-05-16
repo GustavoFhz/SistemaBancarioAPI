@@ -42,6 +42,8 @@ builder.Services.AddScoped<IContaInterface, ContaService>();
 builder.Services.AddScoped<ICartaoInterface, CartaoServices>();
 builder.Services.AddScoped<ITransacaoInterface,  TransacaoService>();
 builder.Services.AddScoped<IEmprestimoInterface, EmprestimoService>();
+builder.Services.AddScoped<IClienteIterface, ClienteService>();
+
 
 var app = builder.Build();
 
@@ -51,6 +53,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseStaticFiles(); // Upload do arquivo
 
 app.UseHttpsRedirection();
 

@@ -3,7 +3,7 @@
     public class Emprestimo
     {
         public int Id { get; set; }
-        public double Valor { get; set; }
+        public decimal Valor { get; set; }
         public int Parcelas { get; set; }
         public double TaxaJurosMensal { get; set; }
         public DateTime DataContratacao { get; set; }
