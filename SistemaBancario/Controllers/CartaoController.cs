@@ -8,11 +8,11 @@ namespace SistemaBancario.Controllers
     [ApiController]
     public class CartaoController : ControllerBase
     {
-        private readonly ICartaoInterface _cartaoInterface;
+        private readonly ICartaoInterface _cartaoService;
 
         public CartaoController(ICartaoInterface cartaoInterface)
         {
-            _cartaoInterface = cartaoInterface;
+            _cartaoService = cartaoInterface;
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace SistemaBancario.Controllers
         [HttpPut("ativacao")]
         public async Task<IActionResult> Ativacao(int clienteId, bool ativo)
         {
-            var cartao = await _cartaoInterface.Ativacao(clienteId, ativo);
+            var cartao = await _cartaoService.Ativacao(clienteId, ativo);
             return Ok(cartao);
         }
 
@@ -36,7 +36,7 @@ namespace SistemaBancario.Controllers
         [HttpPut("bloqueio")]
         public async Task<IActionResult> Bloqueio(int clienteId)
         {
-            var cartao = await _cartaoInterface.Bloqueio(clienteId);
+            var cartao = await _cartaoService.Bloqueio(clienteId);
             return Ok(cartao);
         }
 
@@ -48,7 +48,7 @@ namespace SistemaBancario.Controllers
         [HttpGet("vencimento")]
         public async Task<IActionResult> Vencimento(int clienteId)
         {
-            var cartao = await _cartaoInterface.Vencimento(clienteId);
+            var cartao = await _cartaoService.Vencimento(clienteId);
             return Ok(cartao);
         }
     }

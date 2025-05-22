@@ -9,11 +9,11 @@ namespace SistemaBancario.Controllers
     [ApiController]
     public class ContaController : ControllerBase
     {
-        private readonly IContaInterface _contaInterface;
+        private readonly IContaInterface _contaService;
 
         public ContaController(IContaInterface contaInterface)
         {
-            _contaInterface = contaInterface;
+            _contaService = contaInterface;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace SistemaBancario.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> CriarConta([FromBody] ContaBancariaDto contaBancariaDto)
         {
-            var conta = await _contaInterface.AberturaConta(contaBancariaDto);
+            var conta = await _contaService.AberturaConta(contaBancariaDto);
             return Ok(conta);
         }
 
@@ -48,7 +48,7 @@ namespace SistemaBancario.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ConsultarSaldo([FromQuery] string numeroConta)
         {
-            var saldo = await _contaInterface.ConsultaSaldo(numeroConta);
+            var saldo = await _contaService.ConsultaSaldo(numeroConta);
             return Ok(saldo);
         }
     }

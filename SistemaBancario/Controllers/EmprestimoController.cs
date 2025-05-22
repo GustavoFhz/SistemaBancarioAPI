@@ -10,11 +10,11 @@ namespace SistemaBancario.Controllers
     [ApiController]
     public class EmprestimoController : ControllerBase
     {
-        private readonly IEmprestimoInterface _emprestimoInterface;
+        private readonly IEmprestimoInterface _empretimoService;
 
         public EmprestimoController(IEmprestimoInterface emprestimoInterface)
         {
-            _emprestimoInterface = emprestimoInterface;
+            _empretimoService = emprestimoInterface;
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace SistemaBancario.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ListarEmprestimosAtivos(int clienteId)
         {
-            var response = await _emprestimoInterface.ListarEmprestimosAtivos(clienteId);
+            var response = await _empretimoService.ListarEmprestimosAtivos(clienteId);
             if (response.Status)
                 return Ok(response);
             return BadRequest(response);
@@ -51,7 +51,7 @@ namespace SistemaBancario.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ObterEmprestimoPorId(int emprestimoId)
         {
-            var response = await _emprestimoInterface.ObterEmprestimoPorId(emprestimoId);
+            var response = await _empretimoService.ObterEmprestimoPorId(emprestimoId);
             if (response.Status)
                 return Ok(response);
             return NotFound(response);
@@ -71,7 +71,7 @@ namespace SistemaBancario.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> QuitarEmprestimo(int emprestimoId)
         {
-            var response = await _emprestimoInterface.QuitarEmprestimo(emprestimoId);
+            var response = await _empretimoService.QuitarEmprestimo(emprestimoId);
             if (response.Status)
                 return Ok(response);
             return BadRequest(response);
@@ -91,7 +91,7 @@ namespace SistemaBancario.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> SolicitarEmprestimo([FromBody] EmprestimoRequestDto request)
         {
-            var response = await _emprestimoInterface.SolicitarEmprestimo(
+            var response = await _empretimoService.SolicitarEmprestimo(
                 request.Valor,
                 request.Parcelas,
                 request.TaxaJurosMensal,

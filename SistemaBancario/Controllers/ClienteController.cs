@@ -10,11 +10,11 @@ namespace SistemaBancario.Controllers
     [ApiController]
     public class ClienteController : ControllerBase
     {
-        private readonly IClienteIterface _clienteIterface;
+        private readonly IClienteIterface _clienteService;
 
         public ClienteController(IClienteIterface clienteIterface)
         {
-            _clienteIterface = clienteIterface;
+            _clienteService = clienteIterface;
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace SistemaBancario.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> RegistrarCliente([FromBody] ClienteCriacaoDto clienteCriacaoDto)
         {
-            var cliente = await _clienteIterface.RegistrarCliente(clienteCriacaoDto);
+            var cliente = await _clienteService.RegistrarCliente(clienteCriacaoDto);
             return Ok(cliente);
         }
 
@@ -47,7 +47,7 @@ namespace SistemaBancario.Controllers
         {
             try
             {
-                var urlRelativa = await _clienteIterface.UploadFotoAsync(id, foto);
+                var urlRelativa = await _clienteService.UploadFotoAsync(id, foto);
                 var urlCompleta = $"{Request.Scheme}://{Request.Host}{urlRelativa}";
                 return Ok(new { url = urlCompleta });
             }
@@ -69,7 +69,7 @@ namespace SistemaBancario.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ListarClientes()
         {
-            var clientes = await _clienteIterface.ListarClientes();
+            var clientes = await _clienteService.ListarClientes();
             return Ok(clientes);
         }
 
@@ -87,7 +87,7 @@ namespace SistemaBancario.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> BuscarClientePorId(int id)
         {
-            var cliente = await _clienteIterface.BuscarPorId(id);
+            var cliente = await _clienteService.BuscarPorId(id);
             return Ok(cliente);
         }
 
@@ -105,7 +105,7 @@ namespace SistemaBancario.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> DeletarCliente(int id)
         {
-            var cliente = await _clienteIterface.RemoverCliente(id);
+            var cliente = await _clienteService.RemoverCliente(id);
             return Ok(cliente);
         }
 
@@ -125,7 +125,7 @@ namespace SistemaBancario.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> AlterarCliente([FromBody] ClienteAlteracaoDto clienteAleracaoDto)
         {
-            var cliente = await _clienteIterface.EditarCliente(clienteAleracaoDto);
+            var cliente = await _clienteService.EditarCliente(clienteAleracaoDto);
             return Ok(cliente);
         }
         
