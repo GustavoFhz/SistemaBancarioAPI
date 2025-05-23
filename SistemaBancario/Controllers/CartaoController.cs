@@ -10,9 +10,9 @@ namespace SistemaBancario.Controllers
     {
         private readonly ICartaoInterface _cartaoService;
 
-        public CartaoController(ICartaoInterface cartaoInterface)
+        public CartaoController(ICartaoInterface cartaoService)
         {
-            _cartaoService = cartaoInterface;
+            _cartaoService = cartaoService;
         }
 
         /// <summary>

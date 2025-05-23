@@ -12,9 +12,9 @@ namespace SistemaBancario.Controllers
     {
         private readonly IClienteIterface _clienteService;
 
-        public ClienteController(IClienteIterface clienteIterface)
+        public ClienteController(IClienteIterface clienteService)
         {
-            _clienteService = clienteIterface;
+            _clienteService = clienteService;
         }
 
         /// <summary>

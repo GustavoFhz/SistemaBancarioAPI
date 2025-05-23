@@ -12,9 +12,9 @@ namespace SistemaBancario.Controllers
     {
         private readonly IEmprestimoInterface _empretimoService;
 
-        public EmprestimoController(IEmprestimoInterface emprestimoInterface)
+        public EmprestimoController(IEmprestimoInterface emprestimoService)
         {
-            _empretimoService = emprestimoInterface;
+            _empretimoService = emprestimoService;
         }
 
         /// <summary>

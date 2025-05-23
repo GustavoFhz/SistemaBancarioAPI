@@ -11,9 +11,9 @@ namespace SistemaBancario.Controllers
     {
         private readonly IContaInterface _contaService;
 
-        public ContaController(IContaInterface contaInterface)
+        public ContaController(IContaInterface contaService)
         {
-            _contaService = contaInterface;
+            _contaService = contaService;
         }
 
         /// <summary>
